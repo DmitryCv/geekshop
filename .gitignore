@@ -1,0 +1,9 @@
+.idea
+venv
+__pycache__
+/db.sqlite3
+/geekshop/static/
+/geekshop/wsgi.py
+/geekshop/asgi.py
+/mainapp/tests.py
+/mainapp/migrations/
