@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import json
+from mainapp.models import *
 
 
 def parse(menu_json):
@@ -10,7 +11,8 @@ def parse(menu_json):
 
 def index(request):
     menu = parse('data.json')
-    context = {'menu': menu}
+    prods = Product.objects.all()[:3]
+    context = {'menu': menu, 'products': prods}
     return render(request, 'geekshop/index.html', context)
 
 
