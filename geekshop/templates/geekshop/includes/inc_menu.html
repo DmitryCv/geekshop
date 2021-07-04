@@ -2,10 +2,22 @@
     <a href="{% url 'index' %}" class="logo"></a>
     <ul class="menu">
         {% for link in menu %}
-        <li><a href="{% url link.href|join:'' %}"
-               class="{% if request.resolver_match.url_name == link.href|join:'' %} active {% endif %}">
+            <li><a href="{% url link.href|join:'' %}"
+                   class="{% if request.resolver_match.url_name == link.href|join:'' %} active {% endif %}">
                 {{ link.name|join:'' }}</a></li>
-       {% endfor %}
+        {% endfor %}
+        {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'auth:edit' %}">{{ user.username|default:'Пользователь' }}</a>
+            </li>
+        {% endif %}
+        <li>
+            {% if user.is_authenticated %}
+                <a href="{% url 'auth:logout' %}">выйти</a>
+            {% else %}
+                <a href="{% url 'auth:login' %}">войти</a>
+            {% endif %}
+        </li>
     </ul>
     <a href="#" class="search"></a>
     <a href="#" class="basket"></a>
