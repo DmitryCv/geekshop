@@ -8,3 +8,5 @@ __pycache__
 /geekshop/asgi.py
 /mainapp/tests.py
 /mainapp/migrations/
+/authapp/migrations/
+/authapp/tests.py
