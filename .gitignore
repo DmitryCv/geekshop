@@ -10,3 +10,6 @@ __pycache__
 /mainapp/migrations/
 /authapp/migrations/
 /authapp/tests.py
+/basketapp/__init__.py
+/basketapp/migrations/
+/basketapp/tests.py
