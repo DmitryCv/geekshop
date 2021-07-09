@@ -9,6 +9,7 @@ urlpatterns = [
     path('auth/', include('authapp.urls', namespace='auth')),
     path('', index, name='index'),
     path('contacts/', contacts, name='contacts'),
-    path('products/', include('mainapp.urls'))
+    path('products/', include('mainapp.urls')),
+    path('basketapp', include('basketapp.urls', namespace='basketapp')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
