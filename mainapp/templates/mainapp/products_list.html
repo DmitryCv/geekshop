@@ -17,18 +17,16 @@
 
         <div class="products_list">
             <div class="title clearfix">
-                <h2>
-                    Категория: "{{ category.name|title }}"
-                </h2>
+                <h2>Категория: "{{ category.name|title }}"</h2>
             </div>
             <div class="category-products clearfix">
 
                 {% for product in products %}
                     <div class="block">
-                        <a href="{% url 'basketapp:add' product.pk %}">
+                        <a href="{% url 'product' product.pk %}">
                             <img src="/media/{{ product.image }}" alt="product">
                             <div class="text">
-                                <img src="{% static 'img/icon-hover.png' %}" alt="hover">
+                                <img src="{% static 'geekshop/img/icon-hover.png' %}" alt="hover">
                                 <h4>{{ product.name }}</h4>
                                 <p>{{ product.description }}</p>
                             </div>

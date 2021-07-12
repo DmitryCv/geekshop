@@ -17,12 +17,13 @@
             {% else %}
                 <a href="{% url 'auth:login' %}">войти</a>
             {% endif %}
-        </li>
+         </li>
     </ul>
     <a href="#" class="search"></a>
-    <a href="{% url 'basketapp:view' %}">
-    <span>
-        {% if basket %} {{ basket|length }} {% endif %}
-    </span>
-    </a>
+    <a href="{% url 'basketapp:view' %}" class="basket">
+            {% if basket %}
+                {{ basket.0.total_cost|floatformat:0 }} руб
+                ({{ basket.0.total_quantity }} шт)
+            {% endif %}
+        </a>
 </div>
