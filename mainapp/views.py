@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from .models import *
+from geekshop.views import parse
 from basketapp.models import Basket
-
 
 def products(request, pk=None):
     title = 'продукты'
+    menu = parse('data.json')
     prod_menu = ProductCategory.objects.all()
 
     basket = []
@@ -25,6 +26,7 @@ def products(request, pk=None):
             'category': category,
             'products': products,
             'basket': basket,
+            'menu': menu,
         }
 
         return render(request, 'mainapp/products_list.html', content)
@@ -34,7 +36,22 @@ def products(request, pk=None):
     content = {
         'title': title,
         'prod_menu': prod_menu,
-        'same_products': same_products
+        'same_products': same_products,
+        'basket': basket,
+        'menu': menu,
     }
 
     return render(request, 'mainapp/products.html', content)
+
+
+def product(request, pk):
+    title = 'продукты'
+
+    content = {
+        'title': title,
+        'links_menu': ProductCategory.objects.all(),
+        'product': get_object_or_404(Product, pk=pk),
+        'basket': Basket.objects.filter(user=request.user),
+    }
+
+    return render(request, 'mainapp/product.html', content)
