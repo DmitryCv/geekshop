@@ -17,13 +17,18 @@
             {% else %}
                 <a href="{% url 'auth:login' %}">войти</a>
             {% endif %}
-         </li>
+        </li>
+        {% if user.is_superuser %}
+            <li>
+                <a href="{% url 'adminapp:users' %}">админка</a>
+            </li>
+        {% endif %}
     </ul>
     <a href="#" class="search"></a>
     <a href="{% url 'basketapp:view' %}" class="basket">
-            {% if basket %}
-                {{ basket.0.total_cost|floatformat:0 }} руб
-                ({{ basket.0.total_quantity }} шт)
-            {% endif %}
-        </a>
+        {% if basket %}
+            {{ basket.0.total_cost|floatformat:0 }} руб
+            ({{ basket.0.total_quantity }} шт)
+        {% endif %}
+    </a>
 </div>

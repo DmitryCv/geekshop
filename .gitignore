@@ -13,3 +13,5 @@ __pycache__
 /basketapp/__init__.py
 /basketapp/migrations/
 /basketapp/tests.py
+/adminapp/migrations/
+/adminapp/tests.py

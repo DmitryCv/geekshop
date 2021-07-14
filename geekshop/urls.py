@@ -11,5 +11,6 @@ urlpatterns = [
     path('contacts/', contacts, name='contacts'),
     path('products/', include('mainapp.urls')),
     path('basket/', include('basketapp.urls', namespace='basketapp')),
+    path('adminapp/', include('adminapp.urls', namespace='adminapp')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
