@@ -1,9 +1,10 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404
 from .models import *
 from geekshop.views import parse
 from basketapp.models import Basket
 
-def products(request, pk=None):
+def products(request, pk=None, page=1):
     title = 'продукты'
     menu = parse('data.json')
     prod_menu = ProductCategory.objects.all()
@@ -20,11 +21,19 @@ def products(request, pk=None):
             category = get_object_or_404(ProductCategory, pk=pk)
             products = Product.objects.filter(category__pk=pk).order_by('price')
 
+        paginator = Paginator(products, 2)
+        try:
+            products_paginator = paginator.page(page)
+        except PageNotAnInteger:
+            products_paginator = paginator.page(1)
+        except EmptyPage:
+            products_paginator = paginator.page(paginator.num_pages)
+
         content = {
             'title': title,
             'prod_menu': prod_menu,
             'category': category,
-            'products': products,
+            'products': products_paginator,
             'basket': basket,
             'menu': menu,
         }
