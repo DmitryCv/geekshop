@@ -1,6 +1,6 @@
 import hashlib, random
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
-from .models import ShopUser
+from .models import ShopUser, ShopUserProfile
 from django import forms
 
 
@@ -68,3 +68,14 @@ class ShopUserEditForm(UserChangeForm):
         if data[-2:] != 'ru':
             raise forms.ValidationError('Используйте почтовые адреса в домене RU')
         return data
+
+
+class ShopUserProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = ShopUserProfile
+        fields = ('tagline', 'aboutMe', 'gender')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
