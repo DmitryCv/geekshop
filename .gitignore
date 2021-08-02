@@ -16,3 +16,5 @@ __pycache__
 /adminapp/migrations/
 /adminapp/tests.py
 /tmp/
+/geekshop/vk.json
+/ordersapp/migrations/
