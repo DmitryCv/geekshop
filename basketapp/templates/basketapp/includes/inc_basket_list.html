@@ -19,4 +19,6 @@
         В корзине {{ basket_items.0.total_quantity }} товаров общей стоимостью
         {{ basket_items.0.total_cost }} руб
     </div>
+{% else %}
+    <p>Корзина пуста.</p>
 {% endif %}

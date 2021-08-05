@@ -222,7 +222,7 @@ def product_delete(request, pk):
 
     if request.method == 'POST':
         product.delete()
-        return HttpResponseRedirect(reverse('adminapp:products'))
+        return HttpResponseRedirect(reverse('adminapp:products', args=[product.category.pk]))
 
     context = {'title': title, 'product_to_delete': product}
     return render(request, 'adminapp/product_delete.html', context)
