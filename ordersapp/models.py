@@ -3,6 +3,15 @@ from django.db import models
 from mainapp.models import Product
 
 
+class OrderItemQuerySet(models.QuerySet):
+
+    def delete(self):
+        for object in self:
+            object.product.quantity += object.quantity
+            object.product.save()
+        super().delete()
+
+
 class Order(models.Model):
     FORMING = 'FM'
     SENT_TO_PROCEED = 'STP'
@@ -53,6 +62,20 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name="orderitems", on_delete=models.CASCADE)
     product = models.ForeignKey(Product, verbose_name='продукт', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(verbose_name='количество', default=0)
+    objects = OrderItemQuerySet.as_manager()
 
     def get_product_cost(self):
         return self.product.price * self.quantity
+
+    def save(self):
+        if self.pk:
+            self.product.quantity -= self.quantity - self.__class__.get_item(self.pk).quantity
+        else:
+            self.product.quantity -= self.quantity
+        self.product.save()
+        super().save()
+
+    def delete(self):
+        self.product.quantity += self.quantity
+        self.product.save()
+        super().delete()
